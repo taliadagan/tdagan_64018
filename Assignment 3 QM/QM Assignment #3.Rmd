@@ -1,0 +1,57 @@
+---
+title: 'QM Assignment #3'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+getwd()
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#1 Solve the problem using lpsolve, or any other equivalent library in R.
+```{r}
+library(lpSolve)
+library(lpSolveAPI)
+lprec <- read.lp("QM#2Solution.lp")
+solve(lprec)
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+X <- "QM#2Solution.lp"
+```
+
+# 2 Identify the shadow prices, dual solution, and reduced costs
+```{r}
+#Get shadow prices
+get.sensitivity.rhs(lprec)
+#Get dual solution 
+get.dual.solution(lprec)
+#Get reduced costs 
+get.sensitivity.obj(lprec)
+
+```
+
+
+#3 identify the sensitivity of the above prices and costs. That is, specify the range of shadow prices and reduced cost within which the optimal solution will not change.
+```{r}
+# The range of the shadow prices within the optimal solution that will not change are the valid ranges of -1.000000e+30 to 5.181818e+03. The shadow price for constraint one to three is zero. The range of reduced costs is -1.00e+30 to 4.60e+.02 . 
+
+```
+
+
+#4 Formulate the dual of the above problem and solve it. Does the solution agree with what you observed for the primal problem?
+```{r}
+library(lpSolveAPI)
+library(lpSolve)
+lprec <- read.lp("3RSTUDIO.lp")
+solve(lprec)
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+Y <- "QM#2Solution.lp"
+```
+
+#this solution somewhat agrees with what I observed in the orignal primal problem. When I orignially solved the primal problem, I got 696,000. When I solved the duality function, I got 698,000.4. The reason why they are 2,000.2 apart is due to the additional Y10 and Y11 constraints. This is why there is a price difference. 
