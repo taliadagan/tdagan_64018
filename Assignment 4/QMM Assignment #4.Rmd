@@ -1,0 +1,56 @@
+---
+title: 'QMM Assignment #4'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Formulate and solve this transportation problem using lpsolve, or any other equivalent library in R.
+```{r}
+library(lpSolve)
+library(lpSolveAPI)
+```
+
+# Solve the problem 
+```{r}
+lprec <- read.lp("qmmass.lp")
+solve(lprec)
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+X <- "QM#4.lp.R"
+```
+#How many AEDs should be produced in each plant? 100 produced in plantA (60 + 40) and 110 (80+30+0) produced in plantB. 
+
+**How should they be distributed to each of the three wholesaler warehouses so as to minimize the combined cost of production and shipping? From plant A to warehouse 1, 0 should be distributed. From plant A to warehouse 2, 60 should be distributed. From plant A to warehouse 3, 40 should be distributed. From Plant B to warehouse 1 80 AED should be distributed. From plant B to warehouse 2, 30 AED should be distributed. From plant B to warehouse 3, 0 AED should be distributed.**
+
+
+#2 What is the minimum cost of providing oil to the refineries? Which wells are used to capacity in the optimal schedule? Formulation of the problem is enough.
+```{r}
+q2 <- read.lp("QM#4.lp")
+q2
+```
+
+```{r}
+solve(q2)
+get.objective(q2)
+get.variables(q2)
+get.constraints(q2)
+
+```
+**minimum cost value 1,966.68**
+
+#2) Show the network diagram corresponding to the solution in (a). That is, label each of the arcs in the solution and verify that the flows are consistent with the given information.
+```{r}
+
+```
+
+
+
+
+
