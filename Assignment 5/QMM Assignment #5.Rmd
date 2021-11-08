@@ -1,0 +1,122 @@
+---
+title: 'QMM Assignment #5'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(Benchmarking)
+library(lpSolveAPI)
+library(ucminf)
+library(quadprog)
+```
+
+#1) Formulate and perform DEA analysis under all DEA assumptions of FDH, CRS, VRS, IRS, DRS, and FRH. 
+```{r}
+# Using Benchmarking Libraries for DEA
+library(Benchmarking)
+library(lpSolveAPI)
+library(ucminf)
+library(quadprog)
+X <- matrix(c(150,400,320,520,350,320,0.2,0.7,1.2,2.0,1.2,.7), ncol=2)
+Y <- matrix(c(14000,14000,42000,28000,19000,14000,3500,21000,10500,42000,25000,15000), ncol=2)
+
+colnames(X) <- c("TP", "RP")
+colnames(Y) <- c("Staffing Labor Per Hour", "Cost of Supplies per day")
+X
+Y
+
+#DEA Analysis 
+
+e <- dea(X,Y,RTS = "crs")            # provide the input and output 
+e
+peers(e)                             # identify the peers
+lambda(e)                            # identify the relative weights given to the peers
+dea.plot.isoquant(x,y,RTS="crs")     # plot the results
+
+#FDH Assumptions
+
+FDH <- dea (X,Y, RTS = "fdh")
+FDH
+
+peers(FDH)
+lambda(FDH)
+dea.plot.frontier(X,Y,RTS="FDH")
+summary(FDH, digits=4)
+
+
+#VRS Assumptions
+
+VRS <- dea (X,Y, RTS = "vrs")
+VRS
+
+peers(VRS)
+lambda(VRS)
+dea.plot.frontier(X,Y,RTS="VRS")
+summary(VRS, digits=4)
+
+#IRS Assumptions
+
+IRS <- dea (X,Y, RTS = "irs")
+IRS
+
+peers(IRS)
+lambda(IRS)
+dea.plot.frontier(X,Y,RTS="IRS")
+summary(IRS, digits=4)
+
+#DRS Assumptions 
+
+DRS <- dea (X,Y, RTS = "drs")
+VRS
+
+peers(DRS)
+lambda(DRS)
+dea.plot.frontier(X,Y,RTS="DRS")
+summary(DRS, digits=4)
+
+#CRS Assumptions
+
+CRS <- dea (X,Y, RTS = "crs")
+CRS
+
+peers(CRS)
+lambda(CRS)
+dea.plot.frontier(X,Y,RTS="CRS")
+summary(CRS, digits=4)
+```
+
+
+
+#Express management’s objective function in terms of x1, x2, x3, y1+, y1- , y2+ and y2-. Formulate and solve the linear programming model. What are your findings? 
+```{r}
+library(lpSolve)
+library(lpSolveAPI)
+lprec <- read.lp("QMM Assignment #5.lp")
+solve(lprec)
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+X <- "QMM Assignment #5.lp"
+```
+#Solving the lp, it can be found that 225 million is the maximum profit.
+
+
+```{r}
+library(lpSolve)
+library(lpSolveAPI)
+lprec <- read.lp("QMMnumber2.lp")
+solve(lprec)
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+Y <- "QMMnumber2.lp"
+```
+
+# The optimal solution is 208.333 for maximum profit. I that suggest the EMAX produces 0 from product 1, 8 from product 2, 3 from product 3. 
+
