@@ -1,0 +1,53 @@
+---
+title: 'QMM #6'
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Packages used
+```{r}
+library(Benchmarking)
+library(lpSolveAPI)
+library(ucminf)
+library(quadprog)
+#install.packages("data.tree")
+library(data.tree)
+```
+
+##Consider the following activity-on-arc project network, where the 12 arcs (arrows) represent the 12 activities (tasks) that must be performed to complete the project and the network displays the order in which the activities need to be performed. The number next to each arc (arrow) is the time required for the corresponding activity. Consider the problem of finding the longest path (the largest total time) through this network from start (node 1) to finish (node 9), since the longest path is the critical path.  
+#Formulate and solve the binary integer programming (BIP) model for this problem using library lpsolve or equivalent in R. 
+```{r}
+library(lpSolveAPI)
+x <- read.lp("QMM#6.lp")
+x
+solve(x)
+get.objective(x)
+get.variables(x)
+#The longest critical path is node 1, node 2,  node 5, node 7, node 9. 
+```
+
+##Determine the maximum return on the portfolio. What is the optimal number of shares to buy for each of the stocks? What is the corresponding dollar amount invested in each stock?
+```{r}
+library(lpSolveAPI)
+x <- read.lp("#6 qmm #2.lp")
+x
+solve(x)
+get.objective(x)
+get.variables(x)
+#The maximum return on the portfolio is $477,050. 
+```
+
+## Compare the solution in which there is no integer restriction on the number of shares invested. By how much (in percentage terms) do the integer restrictions alter the value of the optimal objective function? By how much (in percentage terms) do they alter the optimal investment quantities? 
+```{r}
+library(lpSolveAPI)
+x <- read.lp("assignment 6 pt2.lp")
+x
+solve(x)
+get.objective(x)
+get.variables(x)
+```
+
